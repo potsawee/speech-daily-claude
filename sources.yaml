@@ -46,29 +46,43 @@ mute_keywords:
   - vibration analysis
 
 follow_authors:
-  - Yoshua Bengio
-  - Yann LeCun
-  - Geoffrey Hinton
-  - Jan Chorowski
-  - Tao Qin
+  - Mark Gales
+  - Kate Knill
+  - Diyi Yang
+  - Percy Liang
+  - Jinyu Li
+  - Shinji Watanabe
+  - Kai Yu
+  - Xie Chen
+  - Alexandre Défossez
+  - Furu Wei
   - Heiga Zen
+  - Dinesh Manocha
+  - Sreyan Ghosh
+  - Chao-Han Huck Yang
+  - Chao Zhang (Tsinghua)
+  - Wei-Ning Hsu
+  - Neil Zeghidour
+  - Hung-yi Lee
+  - David Harwath
+  - Yossi Adi
   - Jonathan Shen
   - Rongjie Huang
-  - Xu Tan
-  - Kai Zhen
   - Dong Yu
   - Xuankai Chang
-  - Shinji Watanabe
+  - Gopala Anumanchipalli
 
 follow_labs:
   - Google
   - DeepMind
-  - Microsoft Research
+  - Microsoft
   - Meta AI
   - OpenAI
   - Apple
   - ByteDance
   - NVIDIA
+  - Stanford
+  - Cambridge
   - CMU
   - MIT CSAIL
   - Johns Hopkins
