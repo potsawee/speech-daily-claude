@@ -1,0 +1,75 @@
+arxiv_categories:
+  - cs.SD      # Sound
+  - eess.AS    # Audio and Speech Processing
+  - cs.CL      # Computation and Language
+  - cs.LG      # Machine Learning
+
+keywords_boost:
+  - speech synthesis
+  - text-to-speech
+  - TTS
+  - automatic speech recognition
+  - ASR
+  - speaker diarization
+  - audio generation
+  - voice conversion
+  - speech enhancement
+  - spoken language model
+  - audio codec
+  - neural codec
+  - speech language model
+  - audio LLM
+  - zero-shot voice
+  - prosody
+  - speech tokenizer
+  - audio tokenizer
+  - diffusion audio
+  - flow matching speech
+  - speech translation
+  - end-to-end ASR
+  - whisper
+  - conformer
+  - transducer
+  - CTC
+  - streaming ASR
+  - noise suppression
+  - source separation
+  - sound event detection
+  - music generation
+  - audio captioning
+
+mute_keywords:
+  - radar
+  - ultrasound medical
+  - seismic
+  - sonar
+  - vibration analysis
+
+follow_authors:
+  - Yoshua Bengio
+  - Yann LeCun
+  - Geoffrey Hinton
+  - Jan Chorowski
+  - Tao Qin
+  - Heiga Zen
+  - Jonathan Shen
+  - Rongjie Huang
+  - Xu Tan
+  - Kai Zhen
+  - Dong Yu
+  - Xuankai Chang
+  - Shinji Watanabe
+
+follow_labs:
+  - Google
+  - DeepMind
+  - Microsoft Research
+  - Meta AI
+  - OpenAI
+  - Apple
+  - ByteDance
+  - NVIDIA
+  - CMU
+  - MIT CSAIL
+  - Johns Hopkins
+  - Edinburgh
