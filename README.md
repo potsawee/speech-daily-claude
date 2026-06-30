@@ -4,23 +4,39 @@ A morning scout routine that finds and ranks new speech & audio research papers.
 State lives in this Git repo (no external storage) so it survives scheduled,
 non-interactive runs.
 
+## Branch layout (why there are two)
+
+Routines can only `git push` to `claude/`-prefixed branches, not to `main`. So
+state is split across two branches:
+
+| Branch | Holds | Written by |
+|--------|-------|-----------|
+| **`main`** (default) | `sources.yaml`, `interest_profile.md`, docs | **You** |
+| **`claude/daily-state`** | `seen.json`, `digests/` | The routine |
+
+Each run reads config from `main`, reads/writes state on `claude/daily-state`,
+and pushes only to that branch — so it needs no special push permission.
+
+**📅 Browse digests:** [`claude/daily-state` → `digests/`](https://github.com/potsawee/speech-daily-claude/tree/claude/daily-state/digests)
+
 ## Files
 
-| File | Role | Edited by |
-|------|------|-----------|
-| `sources.yaml` | Config: arXiv categories, boost/mute keywords, followed authors & labs | **You** |
-| `interest_profile.md` | Learned preferences used for scoring | You + routine |
-| `seen.json` | Flat array of arXiv IDs already shown (dedupe). Pruned to ~last 90 days. | Routine |
-| `digests/YYYY-MM-DD.md` | Archived ranked digest per run | Routine |
+| File | Role | Lives on | Edited by |
+|------|------|----------|-----------|
+| `sources.yaml` | Config: arXiv categories, boost/mute keywords, followed authors & labs | `main` | **You** |
+| `interest_profile.md` | Learned preferences used for scoring | `main` | You + routine |
+| `seen.json` | Flat array of arXiv IDs already shown (dedupe). Pruned to ~last 90 days. | `claude/daily-state` | Routine |
+| `digests/YYYY-MM-DD.md` | Archived ranked digest per run | `claude/daily-state` | Routine |
 
 ## Daily flow
 
-1. **Load state** — read `sources.yaml`, `interest_profile.md`, `seen.json`.
-2. **Gather** — query recent papers for each category in `sources.yaml` + scan HuggingFace audio/speech.
-3. **Dedupe** — drop IDs already in `seen.json`.
-4. **Rank** — auto-include followed authors/labs (★, pinned to top); score the rest against `keywords_boost` + `interest_profile.md`; down-rank `mute_keywords`.
-5. **Output** — top 5 as a scannable digest, archived under `digests/`.
-6. **Update state** — append shown IDs to `seen.json`, commit, push.
+1. **Set up branch** — fetch/checkout `claude/daily-state` (created from `main` on first run); refresh config from `main`.
+2. **Load state** — read `sources.yaml`, `interest_profile.md`, `seen.json`.
+3. **Gather** — query recent papers for each category in `sources.yaml` + scan HuggingFace audio/speech.
+4. **Dedupe** — drop IDs already in `seen.json`.
+5. **Rank** — auto-include followed authors/labs (★, pinned to top); score the rest against `keywords_boost` + `interest_profile.md`; down-rank `mute_keywords`.
+6. **Output** — top 5 as a scannable digest, archived under `digests/`.
+7. **Update state** — append shown IDs to `seen.json`, commit, **push to `claude/daily-state`**.
 
 ## Network access
 
