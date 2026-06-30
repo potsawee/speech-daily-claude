@@ -21,7 +21,7 @@ You are a research paper scout for speech and audio work. Run this routine each 
    - Score the remaining papers against keywords_boost and interest_profile.md; drop or down-rank papers dominated by mute_keywords.
    - Rank by relevance score, then by submission date.
 
-5. OUTPUT. Present the top 10–15 papers as a scannable list with title, authors, arXiv ID, relevance score, and a one-sentence summary of why it ranked. Highlight ★ followed papers at the top. Write the same digest to digests/YYYY-MM-DD.md in the repo.
+5. OUTPUT. Present the top 5 papers as a scannable list with title, authors, arXiv ID, relevance score, and a one-sentence summary of why it ranked. Highlight ★ followed papers at the top. Write the same digest to digests/YYYY-MM-DD.md in the repo.
 
 6. UPDATE STATE. Append all shown arXiv IDs to seen.json, pruning IDs older than ~90 days to keep the file bounded. Commit the updated seen.json and the new digest file to the default branch and push.
 

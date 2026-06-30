@@ -19,20 +19,18 @@ non-interactive runs.
 2. **Gather** — query recent papers for each category in `sources.yaml` + scan HuggingFace audio/speech.
 3. **Dedupe** — drop IDs already in `seen.json`.
 4. **Rank** — auto-include followed authors/labs (★, pinned to top); score the rest against `keywords_boost` + `interest_profile.md`; down-rank `mute_keywords`.
-5. **Output** — top 10–15 as a scannable digest, archived under `digests/`.
+5. **Output** — top 5 as a scannable digest, archived under `digests/`.
 6. **Update state** — append shown IDs to `seen.json`, commit, push.
 
-## ⚠️ Known limitation: network policy blocks arXiv
+## Network access
 
-This environment's egress policy **denies outbound to `arxiv.org`, `export.arxiv.org`,
-`huggingface.co`, and `api.semanticscholar.org`** (403 policy denial). The routine's
-intended primary source — the arXiv API — is therefore unreachable, and gathering
-falls back to the server-side WebSearch tool. Consequences:
+The routine's environment uses **Full** network access, so it reaches the live
+arXiv API (`export.arxiv.org/api/query`) and `huggingface.co` directly — digests
+are date-accurate, category-filtered, and cover a true ~2-day window.
 
-- Coverage is **best-effort**, not a complete 48-hour sweep.
-- Submission dates are **approximate** (inferred from arXiv IDs).
+> **Note:** call the arXiv API over **HTTPS** (`https://export.arxiv.org/...`).
+> The environment proxy only tunnels HTTPS; a plain `http://` request returns 403.
 
-**To restore full coverage:** allowlist `arxiv.org` and `export.arxiv.org` in the
-environment's network settings (see https://code.claude.com/docs/en/claude-code-on-the-web).
-Once allowed, the routine can hit `export.arxiv.org/api/query` directly with proper
-date-sorted, category-filtered results.
+As a safety net, the routine prompt still falls back to the WebSearch tool if a
+host is ever blocked (HTTP 403 / `host_not_allowed`), and notes in the digest when
+coverage is best-effort rather than a complete sweep.
