@@ -26,7 +26,7 @@ and pushes only to that branch — so it needs no special push permission.
 | `sources.yaml` | Config: arXiv categories, boost/mute keywords, followed authors & labs | `main` | **You** |
 | `interest_profile.md` | Learned preferences used for scoring | `main` | You + routine |
 | `seen.json` | Flat array of arXiv IDs already shown (dedupe). Pruned to ~last 90 days. | `claude/daily-state` | Routine |
-| `digests/YYYY-MM-DD.md` | Archived ranked digest per run | `claude/daily-state` | Routine |
+| `digests/YYYY-MM-DD-HHMM.md` | Archived ranked digest per run (UTC timestamp; same-day re-runs don't clash) | `claude/daily-state` | Routine |
 
 ## Daily flow
 
