@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Speech-Daily — Paper Digests</title>
+<meta name="description" content="Daily digest of new speech &amp; audio research papers." />
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f6f8fa;
+    --surface-2: #eef1f4;
+    --text: #1f2328;
+    --muted: #656d76;
+    --accent: #0969da;
+    --border: #d0d7de;
+    --shadow: 0 1px 3px rgba(31, 35, 40, .08);
+    --radius: 10px;
+    --maxw: 780px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1117; --surface: #161b22; --surface-2: #1c2230;
+      --text: #e6edf3; --muted: #8b949e; --accent: #4493f8;
+      --border: #30363d; --shadow: 0 1px 3px rgba(1, 4, 9, .5);
+    }
+  }
+  html[data-theme="light"] {
+    --bg: #ffffff; --surface: #f6f8fa; --surface-2: #eef1f4;
+    --text: #1f2328; --muted: #656d76; --accent: #0969da;
+    --border: #d0d7de; --shadow: 0 1px 3px rgba(31, 35, 40, .08);
+  }
+  html[data-theme="dark"] {
+    --bg: #0d1117; --surface: #161b22; --surface-2: #1c2230;
+    --text: #e6edf3; --muted: #8b949e; --accent: #4493f8;
+    --border: #30363d; --shadow: 0 1px 3px rgba(1, 4, 9, .5);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* ---------- header ---------- */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter: saturate(1.4) blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .bar {
+    max-width: var(--maxw); margin: 0 auto; padding: 10px 16px;
+    display: flex; align-items: center; gap: 10px 12px; flex-wrap: wrap;
+  }
+  .brand { display: flex; align-items: baseline; gap: 8px; margin-right: auto; }
+  .brand h1 { font-size: 17px; margin: 0; letter-spacing: -.2px; }
+  .brand .sub { color: var(--muted); font-size: 12px; }
+  .controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+  select, button {
+    font: inherit; color: var(--text); background: var(--surface);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 7px 10px; cursor: pointer; line-height: 1.2;
+  }
+  select { max-width: 62vw; padding-right: 26px; }
+  button { min-width: 38px; }
+  button:hover:not(:disabled), select:hover { border-color: var(--accent); }
+  button:disabled { opacity: .38; cursor: default; }
+  .icon-btn { font-size: 15px; }
+  .latest {
+    display: none; font-size: 11px; font-weight: 600; color: #fff;
+    background: var(--accent); padding: 2px 8px; border-radius: 999px;
+  }
+  .latest.show { display: inline-block; }
+
+  /* ---------- content ---------- */
+  main { max-width: var(--maxw); margin: 0 auto; padding: 22px 16px 80px; }
+
+  #status { color: var(--muted); padding: 40px 4px; text-align: center; }
+  #status a { color: var(--accent); }
+  .spinner {
+    width: 22px; height: 22px; border: 2.5px solid var(--border);
+    border-top-color: var(--accent); border-radius: 50%;
+    display: inline-block; animation: spin .8s linear infinite; vertical-align: -5px; margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  article { animation: fade .25s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  article h1 { font-size: 26px; line-height: 1.25; letter-spacing: -.4px; margin: .2em 0 .6em; }
+  article h2 { font-size: 20px; margin: 1.4em 0 .5em; }
+  article h3 {
+    font-size: 18px; margin: 1.8em 0 .5em; padding-top: 1.4em;
+    border-top: 1px solid var(--border); line-height: 1.35;
+  }
+  article h3:first-of-type { border-top: none; padding-top: 0; }
+  article p { margin: .55em 0; }
+  article a { color: var(--accent); text-decoration: none; overflow-wrap: anywhere; }
+  article a:hover { text-decoration: underline; }
+  article strong { font-weight: 700; }
+  article em { color: var(--text); }
+  article code {
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 6px; padding: .1em .4em; font-size: .88em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  article hr { border: none; border-top: 1px solid var(--border); margin: 1.6em 0; }
+  article ul, article ol { padding-left: 1.4em; }
+  article blockquote {
+    margin: 1em 0; padding: .2em 1em; color: var(--muted);
+    border-left: 3px solid var(--border);
+  }
+
+  footer {
+    max-width: var(--maxw); margin: 0 auto; padding: 20px 16px 40px;
+    border-top: 1px solid var(--border); color: var(--muted); font-size: 13px;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <div class="brand">
+        <h1>📰 Speech-Daily</h1>
+        <span class="sub">speech &amp; audio paper digests</span>
+      </div>
+      <div class="controls">
+        <span class="latest" id="latestBadge">latest</span>
+        <button class="icon-btn" id="olderBtn" title="Older digest">◀</button>
+        <select id="picker" aria-label="Choose a digest"></select>
+        <button class="icon-btn" id="newerBtn" title="Newer digest">▶</button>
+        <button class="icon-btn" id="refreshBtn" title="Check for new digests">⟳</button>
+        <button class="icon-btn" id="themeBtn" title="Toggle light/dark">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div id="status"><span class="spinner"></span>Loading digests…</div>
+    <article id="content" hidden></article>
+  </main>
+
+  <footer>
+    Source: <a id="repoLink" href="#" target="_blank" rel="noopener">github.com/potsawee/speech-daily-claude</a>
+    · digests live on the <code>claude/daily-state</code> branch.
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+  <script>
+  (function () {
+    // ---- config: point this at your repo / state branch ----
+    const CFG = {
+      owner:  'potsawee',
+      repo:   'speech-daily-claude',
+      branch: 'claude/daily-state',
+      dir:    'digests',
+    };
+    const LIST_URL = `https://api.github.com/repos/${CFG.owner}/${CFG.repo}/contents/${CFG.dir}?ref=${encodeURIComponent(CFG.branch)}`;
+    const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const FULLMONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+    const $ = (id) => document.getElementById(id);
+    const statusEl = $('status'), contentEl = $('content'), picker = $('picker');
+    const olderBtn = $('olderBtn'), newerBtn = $('newerBtn');
+
+    let entries = [];              // [{ stem, url, label, shortLabel, ym, ymLabel }], newest first
+    let current = null;
+    const contentCache = new Map();
+
+    $('repoLink').href = `https://github.com/${CFG.owner}/${CFG.repo}/tree/${CFG.branch}/${CFG.dir}`;
+
+    // ---------- theme ----------
+    function applyTheme(t) {
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      else document.documentElement.removeAttribute('data-theme');
+      const dark = t === 'dark' || (t == null && matchMedia('(prefers-color-scheme: dark)').matches);
+      $('themeBtn').textContent = dark ? '☀️' : '🌙';
+    }
+    $('themeBtn').addEventListener('click', () => {
+      const cur = localStorage.getItem('sd-theme');
+      const next = cur === 'dark' ? 'light' : cur === 'light' ? 'dark'
+                 : (matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark');
+      localStorage.setItem('sd-theme', next);
+      applyTheme(next);
+    });
+    applyTheme(localStorage.getItem('sd-theme'));
+
+    // ---------- filename -> friendly label ----------
+    function toEntry(f) {
+      const stem = f.name.replace(/\.md$/, '');
+      const m = stem.match(/^(\d{4})-(\d{2})-(\d{2})-(\d{2})(\d{2})$/);
+      let label = stem, shortLabel = stem, ym = stem, ymLabel = stem;
+      if (m) {
+        const [, Y, Mo, D, H, Mi] = m;
+        label = `${MONTHS[+Mo - 1]} ${+D}, ${Y} · ${H}:${Mi} UTC`;   // full, incl. year (option tooltip)
+        shortLabel = `${MONTHS[+Mo - 1]} ${+D} · ${H}:${Mi} UTC`;     // shown in-group; the header supplies the year
+        ym = `${Y}-${Mo}`;                                           // grouping key, e.g. "2026-06"
+        ymLabel = `${FULLMONTHS[+Mo - 1]} ${Y}`;                     // optgroup header, e.g. "June 2026"
+      }
+      return { stem, name: f.name, url: f.download_url, label, shortLabel, ym, ymLabel };
+    }
+
+    // Group options by year-month (<optgroup>) so the dropdown stays scannable with many digests.
+    // Assumes `list` is sorted newest-first, so entries for a given month are contiguous.
+    function buildPickerOptions(list) {
+      let html = '', lastYm = null;
+      for (const e of list) {
+        if (e.ym !== lastYm) {
+          if (lastYm !== null) html += '</optgroup>';
+          html += `<optgroup label="${e.ymLabel}">`;
+          lastYm = e.ym;
+        }
+        html += `<option value="${e.stem}" title="${e.label}">${e.shortLabel}</option>`;
+      }
+      return html + (lastYm !== null ? '</optgroup>' : '');
+    }
+
+    // ---------- data loading ----------
+    async function fetchList(force) {
+      if (!force) {
+        const cached = sessionStorage.getItem('sd-list');
+        if (cached) { try { return JSON.parse(cached); } catch (_) {} }
+      }
+      const res = await fetch(LIST_URL, { headers: { Accept: 'application/vnd.github+json' } });
+      if (!res.ok) {
+        const err = new Error('HTTP ' + res.status);
+        err.rateLimited = res.status === 403 && res.headers.get('x-ratelimit-remaining') === '0';
+        throw err;
+      }
+      const data = await res.json();
+      sessionStorage.setItem('sd-list', JSON.stringify(data));
+      return data;
+    }
+
+    function showStatus(html) { statusEl.innerHTML = html; statusEl.hidden = false; contentEl.hidden = true; }
+    function showError(msg) {
+      const fallback = `<a href="https://github.com/${CFG.owner}/${CFG.repo}/tree/${CFG.branch}/${CFG.dir}" target="_blank" rel="noopener">Browse digests on GitHub →</a>`;
+      showStatus(`⚠️ ${msg}<br><br>${fallback}`);
+    }
+
+    function renderMarkdown(md) {
+      const html = DOMPurify.sanitize(marked.parse(md));
+      contentEl.innerHTML = html;
+      contentEl.querySelectorAll('a').forEach((a) => { a.target = '_blank'; a.rel = 'noopener noreferrer'; });
+      statusEl.hidden = true; contentEl.hidden = false;
+      window.scrollTo(0, 0);
+    }
+
+    function updateNav() {
+      const i = entries.indexOf(current);
+      newerBtn.disabled = i <= 0;                    // nothing newer than index 0
+      olderBtn.disabled = i < 0 || i >= entries.length - 1;
+      $('latestBadge').classList.toggle('show', i === 0);
+    }
+
+    async function select(stem) {
+      const e = entries.find((x) => x.stem === stem);
+      if (!e) return;
+      current = e;
+      picker.value = stem;
+      history.replaceState(null, '', '#' + stem);
+      updateNav();
+      showStatus('<span class="spinner"></span>Loading digest…');
+      try {
+        let md = contentCache.get(stem);
+        if (md == null) {
+          const r = await fetch(e.url);
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          md = await r.text();
+          contentCache.set(stem, md);
+        }
+        renderMarkdown(md);
+      } catch (err) {
+        showError('Could not load this digest (' + err.message + ').');
+      }
+    }
+
+    function step(delta) {           // -1 = newer, +1 = older
+      const i = entries.indexOf(current);
+      const next = entries[i + delta];
+      if (next) select(next.stem);
+    }
+    newerBtn.addEventListener('click', () => step(-1));
+    olderBtn.addEventListener('click', () => step(+1));
+    picker.addEventListener('change', () => select(picker.value));
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'SELECT') return;
+      if (e.key === 'ArrowLeft') step(+1);
+      if (e.key === 'ArrowRight') step(-1);
+    });
+    $('refreshBtn').addEventListener('click', () => { sessionStorage.removeItem('sd-list'); init(true); });
+
+    async function init(force) {
+      showStatus('<span class="spinner"></span>Loading digests…');
+      try {
+        const files = await fetchList(force);
+        entries = files
+          .filter((f) => f.type === 'file' && f.name.endsWith('.md'))
+          .map(toEntry)
+          .sort((a, b) => b.stem.localeCompare(a.stem));   // newest first
+        if (!entries.length) return showError('No digests found yet — the routine hasn’t published one.');
+
+        picker.innerHTML = buildPickerOptions(entries);
+        const fromHash = decodeURIComponent(location.hash.slice(1));
+        const start = entries.find((e) => e.stem === fromHash) || entries[0];
+        await select(start.stem);
+      } catch (err) {
+        showError(err.rateLimited
+          ? 'GitHub’s API rate limit was reached (60 requests/hour for anonymous users). Give it a few minutes.'
+          : 'Could not load the digest list (' + err.message + ').');
+      }
+    }
+
+    init(false);
+  })();
+  </script>
+</body>
+</html>
