@@ -48,12 +48,13 @@ mute_keywords:
 follow_authors:
   - Mark Gales
   - Kate Knill
+  - Phil Woodland
   - Diyi Yang
-  - Percy Liang
   - Jinyu Li
   - Shinji Watanabe
   - Kai Yu
   - Xie Chen
+  - Dan Povey
   - Alexandre Défossez
   - Furu Wei
   - Heiga Zen
@@ -66,11 +67,21 @@ follow_authors:
   - Hung-yi Lee
   - David Harwath
   - Yossi Adi
-  - Jonathan Shen
   - Rongjie Huang
   - Dong Yu
-  - Xuankai Chang
   - Gopala Anumanchipalli
+  - Zhizheng Wu
+  - Xu Tan
+  - Joon Son Chung
+  - Michael Auli
+  - Junichi Yamagishi
+  - Sanyuan Chen
+  - Zhihao Du
+  - Wei Xue
+  - Tara Sainath
+  - Boris Ginsburg
+  - Juan Pino
+  - Yanmin Qian
 
 follow_labs:
   - Google
@@ -81,9 +92,12 @@ follow_labs:
   - Apple
   - ByteDance
   - NVIDIA
+  - Kyutai
+  - Alibaba (Qwen/Tongyi)
   - Stanford
   - Cambridge
   - CMU
+  - SJTU (X-LANCE)
   - MIT CSAIL
   - Johns Hopkins
   - Edinburgh
