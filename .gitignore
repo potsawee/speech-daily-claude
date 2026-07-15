@@ -6,3 +6,4 @@ __pycache__/
 # Local / scratch
 *.log
 .DS_Store
+speech_daily_papers
