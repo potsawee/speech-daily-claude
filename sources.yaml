@@ -4,36 +4,64 @@ arxiv_categories:
   - cs.CL      # Computation and Language
   - cs.LG      # Machine Learning
 
+# Keywords are grouped by priority (see interest_profile.md for the full tiering).
 keywords_boost:
-  - speech synthesis
-  - text-to-speech
-  - TTS
+  # --- Tier 1: primary focus — ASR, multilingual ASR, Speech LLM for ASR, speech-text alignment, speech translation ---
   - automatic speech recognition
   - ASR
-  - speaker diarization
-  - audio generation
-  - voice conversion
-  - speech enhancement
-  - spoken language model
-  - audio codec
-  - neural codec
-  - speech language model
-  - audio LLM
-  - zero-shot voice
-  - prosody
-  - speech tokenizer
-  - audio tokenizer
-  - diffusion audio
-  - flow matching speech
-  - speech translation
   - end-to-end ASR
+  - streaming ASR
+  - multilingual ASR
+  - low-resource ASR
+  - code-switching
   - whisper
   - conformer
   - transducer
   - CTC
-  - streaming ASR
+  - speech LLM
+  - speech language model
+  - spoken language model
+  - audio LLM
+  - LLM-based ASR
+  - speech-text alignment
+  - modality alignment
+  - modality gap
+  - cross-modal alignment
+  - knowledge retention
+  - catastrophic forgetting
+  - contextual biasing
+  - rare word recognition
+  - named entity recognition
+  - entity-aware
+  - spoken language understanding
+  - speech understanding
+  - ASR error correction
+  - speech translation
+  - simultaneous translation
+  - speech foundation model
+  # --- Tier 2: core interests ---
+  - audio codec
+  - neural codec
+  - speech tokenizer
+  - audio tokenizer
+  - self-supervised speech
+  - speech representation learning
+  - speech-to-speech
+  - full-duplex
+  # --- Tier 3: secondary (still tracked, lower weight) ---
+  - speech synthesis
+  - text-to-speech
+  - TTS
+  - zero-shot voice
+  - prosody
+  - voice conversion
+  - speech enhancement
   - noise suppression
   - source separation
+  - speaker diarization
+  - audio generation
+  - diffusion audio
+  - flow matching speech
   - sound event detection
   - music generation
   - audio captioning
@@ -57,6 +85,14 @@ follow_authors:
   - Dan Povey
   - Alexandre Défossez
   - Furu Wei
+  - Sheng Zhao
+  - Shujie Liu
+  - Long Zhou
+  - Michael Zeng
+  - Yifan Gong
+  - Naoyuki Kanda
+  - Rui Zhao
+  - Jian Xue
   - Heiga Zen
   - Dinesh Manocha
   - Sreyan Ghosh
@@ -67,13 +103,10 @@ follow_authors:
   - Hung-yi Lee
   - David Harwath
   - Yossi Adi
-  - Rongjie Huang
   - Dong Yu
   - Gopala Anumanchipalli
   - Zhizheng Wu
   - Xu Tan
-  - Joon Son Chung
-  - Michael Auli
   - Junichi Yamagishi
   - Sanyuan Chen
   - Zhihao Du
